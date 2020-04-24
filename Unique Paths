@@ -1,0 +1,30 @@
+class Solution {
+    public int uniquePaths(int m, int n) {
+        
+         
+        int[][] dp = new int[m][n];
+        
+        //to reach any cell on the first row there is only 1 unique way: to move to the right
+        for(int i=0; i< dp[0].length; i++){
+            
+            dp[0][i] = 1;
+        }
+        
+        
+        //to reach any cell on the first columns there is only one unique way: move down
+        for(int i=0; i< dp.length; i++){
+            dp[i][0] = 1;
+        }
+        
+        
+      // to reach other cells in the grid(can reach from only above or from the cell to its left): the number of unique ways = number of unique ways to reach cell above it+ number of unique ways to reach the cell to its left
+        for(int i=1; i< dp.length; i++){
+            for(int j=1; j< dp[i].length; j++){
+                
+                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+            }
+        }
+        
+        return dp[m-1][n-1];
+    }
+}
