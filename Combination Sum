@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        
+        List<List<Integer>> combination = new ArrayList<>();
+        
+        combinationRecursive(candidates, combination, new ArrayList<>(), target, 0);
+        
+        return combination;
+        
+    }
+    
+    public static void combinationRecursive(int[] candidates, List<List<Integer>> combinations, List<Integer> current, int target, int index ){
+        
+        
+        // if(target < 0) return;
+    
+        if(target==0){
+            combinations.add(new ArrayList<>(current));
+        }else if(target > 0) {
+            
+            for(int i=index; i< candidates.length; i++){
+                
+                  current.add(candidates[i]);
+                  combinationRecursive(candidates, combinations, current, target - candidates[i], i); 
+                  current.remove(current.size() - 1);
+                
+            }
+
+        }
+    }
+}
