@@ -1,0 +1,28 @@
+class Solution {
+    public int threeSumClosest(int[] num, int target) {
+        
+        
+        int result = num[0]+ num[1]+ num[num.length-1];
+		Arrays.sort(num);
+		
+		for(int i=0 ; i<num.length-2; i++) {
+			int a= i+1;
+			int b= num.length-1;
+			
+			while(a<b) {
+				int current_sum = num[i] + num[a] +num[b];
+				if(current_sum >target) {
+					b--;
+				}else {
+					a++;
+				}
+				if(Math.abs(current_sum-target) < Math.abs(result-target)) {
+					result= current_sum;
+				}
+			}
+				
+		}
+		return result;
+        
+    }
+}
