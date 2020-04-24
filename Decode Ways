@@ -1,0 +1,38 @@
+class Solution {
+    public int numDecodings(String s) {
+        
+        int [] memo = new int[s.length()+1];
+        
+        return helper_dp(s, s.length(), memo);
+        
+        
+    }
+    
+    
+    public int helper_dp(String data, int k, int[] memo){
+        
+        int result;
+        
+        if(k==0)
+            return 1;
+        
+        int start= data.length()-k;
+        if(data.charAt(start)=='0')
+            return 0;
+        
+        if(memo[k]!=0)
+            return memo[k];
+        
+        result= helper_dp(data, k-1,memo);
+            
+        if(k>=2 && (Integer.parseInt(data.substring(start,start+2))<=26) )
+            result+= helper_dp(data, k-2, memo);
+            memo[k]= result;
+        
+        
+        return result;
+        
+        
+        
+    }
+}
