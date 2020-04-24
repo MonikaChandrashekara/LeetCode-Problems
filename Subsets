@@ -1,0 +1,23 @@
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        
+       List<List<Integer>> result = new ArrayList<>();
+       
+
+        recursiveSubset(nums, result, 0, new ArrayList<Integer>());
+
+       return result;
+        
+    }
+    
+   public static void recursiveSubset(int[] nums, List<List<Integer>> result, int index, List<Integer> current){
+         
+         result.add(new ArrayList<>(current));
+
+          for(int i=index; i < nums.length; i++){
+              current.add(nums[i]);
+              recursiveSubset(nums, result, i +1, current);
+              current.remove(current.size() - 1);
+        }
+    }
+}
