@@ -1,0 +1,58 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        
+        
+        int[][] result =null;
+        
+        if(intervals.length<=1)
+            return intervals;
+        
+        Stack<int[]> stk = new Stack<>();
+        
+        IntervalSort is= new IntervalSort();
+        
+        Arrays.sort(intervals, is);
+        
+        stk.push(intervals[0]);
+        
+        for(int i=1; i<intervals.length; i++){
+            
+            if(overlap(stk.peek(), intervals[i])){
+                
+                int[] temp = stk.pop();
+                temp[1] = Math.max(temp[1], intervals[i][1]);
+                stk.push(temp);
+            }
+            else{
+                stk.push(intervals[i]);
+            }
+        }
+        
+        result= new int[stk.size()][2];
+        
+        for(int i=result.length-1; i>=0; i--){
+            
+            result[i]= stk.pop();
+        }
+        
+    return result;    
+        
+    }
+    
+    public boolean overlap(int a[], int b[]){
+        
+        int front= Math.max(a[0], b[0]);
+        int back= Math.min(a[1], b[1]);
+        
+        return back-front >=0 ? true:false;
+        
+    }
+    
+    
+    class IntervalSort implements Comparator<int[]>{
+        
+        public int compare(int[] one, int[] two){
+            return one[0]- two[0];
+        }
+    }
+}
